@@ -44,8 +44,9 @@
     "postpublish": "zip -j build/venn.zip -- LICENSE README.md build/venn.js build/venn.min.js"
   },
   "dependencies": {
-    "fmin": "0.0.2",
     "d3-selection": "^1.0.2",
-    "d3-transition": "^1.0.1"
+    "d3-transition": "^1.0.1",
+    "fmin": "0.0.2",
+    "lodash": "^4.17.4"
   }
 }

@@ -1,6 +1,6 @@
 import {select, selectAll} from "d3-selection";
 import {transition} from "d3-transition";
-import {shuffle} from "lodash"
+import {shuffle} from "lodash";
 
 import {venn, normalizeSolution, scaleSolution} from "./layout";
 import {intersectionArea, distance, getCenter} from "./circleintersection";

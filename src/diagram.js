@@ -121,7 +121,8 @@ export function VennDiagram() {
             enterPath.style("fill-opacity", "0")
                 .filter(function (d) { return d.sets.length == 1; } )
                 .style("fill", function(d) { return colours(d); })
-                .style("fill-opacity", ".25");
+                .style("fill-opacity", ".25")
+                .style("stroke", function(d) { return colours(d); });
 
             enterText
                 .style("fill", function(d) { return d.sets.length == 1 ? colours(d) : "#444"; });

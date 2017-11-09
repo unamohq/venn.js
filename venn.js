@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition'), require('lodash')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition', 'lodash'], factory) :
-    (factory((global.venn = global.venn || {}),global.d3,global.d3,global.lodash));
-}(this, function (exports,d3Selection,d3Transition,lodash) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3-selection'), require('d3-transition')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'd3-selection', 'd3-transition'], factory) :
+    (factory((global.venn = global.venn || {}),global.d3,global.d3));
+}(this, function (exports,d3Selection,d3Transition) { 'use strict';
 
     var SMALL = 1e-10;
 
@@ -1239,13 +1239,14 @@
             // so this is the same as d3.schemeCategory10, which is only defined in d3 4.0
             // since we can support older versions of d3 as long as we don't force this,
             // I'm hackily redefining below. TODO: remove this and change to d3.schemeCategory10
-            colourScheme = lodash.shuffle(["#1BB471", "#00BAAD", "#05BADF", "#1692EE", "#7F60CD", "#FA9D2B", "#FFC500", "#D4E04F", "#F75C91", "#F56565", "#E25151"]),
+            colourScheme = ["#1BB471", "#00BAAD", "#05BADF", "#1692EE", "#7F60CD", "#FA9D2B", "#FFC500", "#D4E04F", "#F75C91", "#F56565", "#E25151"],
             colourIndex = 0,
-            colours = function(key) {
+            colours = function(item) {
+                var key = item.sets[0];
                 if (key in colourMap) {
                     return colourMap[key];
                 }
-                var ret = colourMap[key] = colourScheme[colourIndex];
+                var ret = colourMap[key] = item.colour || colourScheme[colourIndex];
                 colourIndex += 1;
                 if (colourIndex >= colourScheme.length) {
                     colourIndex = 0;
@@ -1332,11 +1333,11 @@
             if (styled) {
                 enterPath.style("fill-opacity", "0")
                     .filter(function (d) { return d.sets.length == 1; } )
-                    .style("fill", function(d) { return colours(label(d)); })
+                    .style("fill", function(d) { return colours(d); })
                     .style("fill-opacity", ".25");
 
                 enterText
-                    .style("fill", function(d) { return d.sets.length == 1 ? colours(label(d)) : "#444"; });
+                    .style("fill", function(d) { return d.sets.length == 1 ? colours(d) : "#444"; });
             }
 
             // update existing, using pathTween if necessary

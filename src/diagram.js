@@ -33,7 +33,7 @@ export function VennDiagram() {
             if (key in colourMap) {
                 return colourMap[key];
             }
-            var ret = colourMap[key] = item.colour || colourScheme[colourIndex];
+            var ret = colourMap[key] = item.colours && item.colours.length ? item.colours[0] : colourScheme[colourIndex];
             colourIndex += 1;
             if (colourIndex >= colourScheme.length) {
                 colourIndex = 0;
